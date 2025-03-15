@@ -1,0 +1,7 @@
+tensorflow
+sentencepiece
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
