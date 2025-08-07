@@ -6,7 +6,7 @@
 
 ## **Features**
 
-- **AI-Generated Payloads**: Uses advanced neural networks trained on a dataset of real-world XSS attacks to generate innovative payloads. The model achieves a **Validation Accuracy of 88.49%** and a **Validation F1 Score of 67.63%**, indicating reliable payload generation with balanced performance across both precision and recall.
+- **AI-Generated Payloads**: Uses advanced neural networks trained on a dataset of real-world XSS attacks to generate innovative payloads. The model achieves a **Validation Accuracy of 91.42%** and a **Validation F1 Score of 72.96%**, indicating reliable payload generation with balanced performance across both precision and recall.
   
 - **Large and Comprehensive Dataset**: Trained on a dataset containing **14,437 training payloads** and **3,609 testing payloads**, providing a robust foundation for generating diverse and sophisticated XSS attack vectors.
 
@@ -59,12 +59,15 @@ If you’re using Google Colab, all dependencies will be installed automatically
    
    ```plaintext
    tensorflow
-   sentencepiece
-   numpy
    pandas
+   numpy
    scikit-learn
    matplotlib
    seaborn
+   sentencepiece
+   wordcloud
+   requests
+   keras
    ```
 
 3. **Run the Jupyter Notebook:**
@@ -72,6 +75,8 @@ If you’re using Google Colab, all dependencies will be installed automatically
    ```bash
    jupyter notebook XSSGAI_AnonKryptiQuz.ipynb
    ```
+
+   - You can also view previous versions of the notebook and other files inside the **[PREVIOUS\_VERSIONS](./PREVIOUS_VERSIONS)** folder.
 
 4. **Run the Notebook**:
    - If you’re viewing the notebook for reference, all outputs (e.g., graphs, results) are already included.
