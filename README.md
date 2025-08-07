@@ -94,6 +94,7 @@ If you’re using Google Colab, all dependencies will be installed automatically
    - Upload the following files:
      - The Jupyter Notebook file: `XSSGAI_AnonKryptiQuz.ipynb`.
      - The dataset files: Ensure the necessary files, such as `train_payloads.csv` and `test_payloads.csv`, are uploaded in the correct structure and accessible in the Colab environment.
+    * *Optional:* You can also upload the `best_model.keras` file to save time and skip the training process if you'd like to continue testing from a pre-trained model.
 
 3. **Run the Notebook**:  
    - Execute all the cells sequentially by selecting **Runtime > Run All** or by running each cell individually.
