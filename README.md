@@ -2,19 +2,25 @@
 
 **XSSGAI** is the **first-ever AI-powered XSS (Cross-Site Scripting) payload generator**. Leveraging machine learning and deep learning techniques, it creates novel payloads based on patterns learned from a dataset of real-world XSS attacks. This groundbreaking tool is designed to assist security researchers and ethical hackers in identifying and mitigating potential XSS vulnerabilities by generating diverse and sophisticated attack vectors.
 
+**XSSGAI v2.0** is the evolution of the first-ever AI-powered XSS payload generator. Moving away from traditional RNNs, this version leverages a **Transformer Architecture** the same technology behind modern LLMs, to synthesize sophisticated, context-aware Cross-Site Scripting attack vectors.
+
+By utilizing **Multi-Axis Proportional Balancing** and **Nucleus (Top-P) Sampling**, v2.0 doesn't just predict characters; it understands the structural logic of bypasses, encoding layers, and tag-event relationships.
+
 ---
 
 ## **Features**
 
-- **AI-Generated Payloads**: Uses advanced neural networks trained on a dataset of real-world XSS attacks to generate innovative payloads. The model achieves a **Validation Accuracy of 91.42%** and a **Validation F1 Score of 72.96%**, indicating reliable payload generation with balanced performance across both precision and recall.
-  
-- **Large and Comprehensive Dataset**: Trained on a dataset containing **14,437 training payloads** and **3,609 testing payloads**, providing a robust foundation for generating diverse and sophisticated XSS attack vectors.
+- **Transformer Brain**: Shifted from GRU/LSTM to a **6-Layer Transformer Encoder** with **Pre-Layer Normalization** (Norm-First) for superior training stability and long-range pattern recognition.
 
-- **Temperature Sampling**: Allows generation of payloads with varying levels of creativity and randomness, enabling users to fine-tune the output based on their needs.
+- **Nucleus (Top-P) Sampling**: Replaced rigid "Greedy" generation with probabilistic sampling. This allows the model to be "creative," exploring rare bypass syntaxes instead of repeating common patterns.
 
-- **SentencePiece Tokenization**: Employs efficient tokenization for payload generation, ensuring flexibility and adaptability while handling complex patterns in the dataset.
+- **Multi-Axis Balancing**: A specialized data engine that ensures the model is equally proficient in common tags (like `<img>`) and rare, high-value tags (like `<math>` or `<details>`).
 
-- **Customizable Parameters**: Adjust parameters like temperature, max length, and repetition limits to fine-tune payload generation according to specific requirements.
+- **Contextual Encoding Augmentation**: Integrated support for **URL, Hex, and Double-URL encoding** within the neural logic, allowing the model to generate payloads that are pre-obfuscated for WAF bypass.
+
+- **Set-Based Novelty Detection**: A high-performance  verification system that instantly tells you if a generated payload is a "Memorized" classic or a "Novel" AI original.
+
+- **Heuristic Logic Layer**: A post-generation "Correction" system that ensures HTML symmetry (closing tags and quotes) while maintaining the neural-generated core.
 
 - **Google Colab Support**: Easily run the tool in Google Colab for cloud-based execution without local setup, making it accessible to users without high-end hardware.
 
@@ -22,19 +28,27 @@
 
 ---
 
+## **Technical Specifications**
+
+| Feature | Specification |
+| --- | --- |
+| **Model Type** | Transformer Encoder (Generative) |
+| **Depth** | 6 Encoder Layers |
+| **Sequence Length** | 384 Tokens (Supports deep obfuscation) |
+| **Optimizer** | AdamW with StepLR Scheduler |
+| **Loss Logic** | Cross-Entropy with 0.1 Label Smoothing |
+| **Framework** | PyTorch / IPyWidgets |
+
+---
+
 ## **Prerequisites**
 
 To use this tool, ensure you have the following installed:
 
-- **Python 3.x**
-- **TensorFlow**
-- **SentencePiece**
-- **NumPy**
-- **Pandas**
-- **Scikit-learn**
-- **Matplotlib** and **Seaborn** (for analysis and visualization)
-
-If you’re using Google Colab, all dependencies will be installed automatically during setup.
+* **Python 3.10+**
+* **PyTorch 2.x+**
+* **CUDA-Enabled GPU** (Tesla T4 or better recommended)
+* **IPyWidgets** (for the interactive GUI)
 
 ---
 
@@ -58,16 +72,21 @@ If you’re using Google Colab, all dependencies will be installed automatically
    Ensure `requirements.txt` contains:
    
    ```plaintext
-   tensorflow
-   pandas
-   numpy
-   scikit-learn
-   matplotlib
-   seaborn
-   sentencepiece
-   wordcloud
-   requests
-   keras
+    torch>=2.0.0
+    torchvision
+    torchaudio
+    numpy>=1.23.0
+    pandas>=1.5.0
+    scikit-learn
+    matplotlib
+    seaborn
+    tqdm
+    requests
+    urllib3
+    ipywidgets>=8.0.0
+    IPython
+    notebook
+    jupyterlab
    ```
 
 3. **Run the Jupyter Notebook:**
@@ -94,7 +113,7 @@ If you’re using Google Colab, all dependencies will be installed automatically
    - Upload the following files:
      - The Jupyter Notebook file: `XSSGAI_AnonKryptiQuz.ipynb`.
      - The dataset files: Ensure the necessary files, such as `train_payloads.csv` and `test_payloads.csv`, are uploaded in the correct structure and accessible in the Colab environment.
-    * *Optional:* You can also upload the `best_model.keras` file to save time and skip the training process if you'd like to continue testing from a pre-trained model.
+    * *Optional:* You can also upload the `xss_transformer_v2.pth` file to save time and skip the training process if you'd like to continue testing from a pre-trained model.
 
 3. **Run the Notebook**:  
    - Execute all the cells sequentially by selecting **Runtime > Run All** or by running each cell individually.
@@ -108,49 +127,52 @@ If you’re using Google Colab, all dependencies will be installed automatically
 
 ## **Usage**
 
-1. **Set Parameters**:  
-   Adjust the following parameters in the notebook to customize payload generation and optimize model performance:
-   
-   - **max_sequence_length**: Set to 3098 (default value)
-   - **vocab_size**: Set to 175 (default value)
-   - **new_max_sequence_length**: Set to 100
-   - **learning_rate**: Set to 0.001
-   - **epochs**: Set to 10
-   - **patience**: Set to 5
-   - **Dropout**: Set to 0.2
-   - **batch_size**: Set to 64
-   - **seq_length**: Set to 70
-   - **GRU units**: Set to 64
-   - **output_dim**: Set to 64
-   - **train_inputs**: Set to 200,000
-   - **max_length**: Set to 70
-   - **max_repeats**: Set to 3
-   - **temperature**: Set to 0.3
-   - **model_name**: Set to "best_model.keras"
-   
-   Modify these values as needed to experiment with different settings and observe how they impact the accuracy and performance of the model.
+### **1. Set Parameters**
 
-2. **Modify Payload Seed Text**:  
-   You can change the initial payload by adjusting the seed text. For example, you can set:
-   - **seed_text**: `"<script>alert(\"AnonKryptiQuz\")"`
-   
-   This allows you to explore how variations in the seed text influence the generated payloads.
+Adjust parameters in the notebook to optimize model performance:
 
-3. **Experiment & Evaluate**:  
-   Feel free to adjust these or other parameters and observe how changes impact model accuracy, payload generation, and overall performance. This flexibility allows you to fine-tune the generator for optimal results.
+* **MAX_LEN**: Set to **384** (supports complex obfuscation).
+* **learning_rate**: Set to **0.0005**.
+* **EPOCHS**: Set to **10**.
+* **Temperature**: Adjust between **0.1** (stable) and **1.2** (creative).
+* **Top-P**: Set to **0.9** (Nucleus Sampling).
 
-4. **Viewing Results Without Downloading Files**:  
-   If you prefer to view the results without downloading any files, you can simply view the generated **PDF file**: [XSSGAI_AnonKryptiQuz.pdf](./XSSGAI_AnonKryptiQuz.pdf), which contains all relevant output.
+### **2. Rapid Deployment (Skip Training)**
+
+To save time (~60 mins), you can use pre-trained assets. Upload the following files from the GitHub to your working directory to skip the training phase:
+
+* `xss_transformer_v2.pth` (The Neural Brain)
+* `vocab.json` (Token Dictionary)
+* `loss_history.json` & `transformer_loss.png`
+
+### **3. Interactive GUI Features**
+
+The v2.0 dashboard allows you to control the "DNA" of the generated payload:
+
+* **Action**: Define JS intent (e.g., `ALERT`, `COOKIE`, `EVAL`).
+* **Tag/Event**: Force specific injection points.
+* **Entropy**: Control the randomness of the output.
+* **Seed Text**: Provide breakout characters (e.g., `"><`) to guide the synthesis.
+
+### **4. Experiment & Evaluate** 
+
+Feel free to adjust these or other parameters and observe how changes impact model accuracy, payload generation, and overall performance. This flexibility allows you to fine-tune the generator for optimal results.
+
+### **5. Viewing Results Without Downloading Files** 
+
+If you prefer to view the results without downloading any files, you can simply view the generated PDF file: [XSSGAI_AnonKryptiQuz.pdf](./XSSGAI_AnonKryptiQuz.pdf), which contains all relevant output.
 
 ---
 
-## **Example Output**
+## **Example Synthesis**
 
 ```plaintext
-Generated Payload (Temperature: 0.1): <script>alert("AnonKryptiQuz");</script>
-Generated Payload (Temperature: 0.3): <script>alert("AnonKryptiQuz")</script>
-Generated Payload (Temperature: 0.5): <script>alert("AnonKryptiQuz");</script>
-Generated Payload (Temperature: 1.0): <script>alert("AnonKryptiQuz")</script>
+[INSTRUCT] ACT:ALERT TAG:IMG EV:ONERROR STY:PLAIN [PAYLOAD]
+>> <img src=x onerror=alert(1)> [MEMORIZED]
+
+[INSTRUCT] ACT:COOKIE TAG:SVG EV:ONLOAD STY:ENCODED [PAYLOAD]
+>> <svg/onload=%61%6c%65%72%74%28%64%6f%63%75%6d%65%6e%74%2e%63%6f%6f%6b%69%65%29> [NOVEL]
+
 ```
 
 ---
@@ -187,7 +209,6 @@ For academic or professional use, please cite this tool as follows:
 - The credits for payloads used in this project belong to their rightful owners.
 
 ---
-
 
 ## **Author**
 
