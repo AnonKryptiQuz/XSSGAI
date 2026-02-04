@@ -1,0 +1,15 @@
+torch>=2.0.0
+torchvision
+torchaudio
+numpy>=1.23.0
+pandas>=1.5.0
+scikit-learn
+matplotlib
+seaborn
+tqdm
+requests
+urllib3
+ipywidgets>=8.0.0
+IPython
+notebook
+jupyterlab
