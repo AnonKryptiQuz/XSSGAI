@@ -1,0 +1,10 @@
+tensorflow
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+sentencepiece
+wordcloud
+requests
+keras
